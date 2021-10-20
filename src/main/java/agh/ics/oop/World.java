@@ -1,7 +1,5 @@
 package agh.ics.oop;
 
-import java.sql.Array;
-
 import static java.lang.System.out;
 
 public class World {
@@ -37,20 +35,20 @@ public class World {
         int i = 0;
         for (String arg : args) {
             switch (arg) {
-                case 'f':
-                    directions[i] = FORWARD;
+                case "f":
+                    directions[i] = Direction.FORWARD;
                     i++;
                     break;
-                case 'b':
-                    directions[i] = BACKWARD;
+                case "b":
+                    directions[i] = Direction.BACKWARD;
                     i++;
                     break;
-                case 'r':
-                    directions[i] = RIGHT;
+                case "r":
+                    directions[i] = Direction.RIGHT;
                     i++;
                     break;
-                case 'l':
-                    directions[i] = LEFT;
+                case "l":
+                    directions[i] = Direction.LEFT;
                     i++;
                     break;
             }
