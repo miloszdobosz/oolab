@@ -11,14 +11,16 @@ public class Animal {
     public void move(MoveDirection direction) {
 
         // Fuuj
-        Vector2d newPosition = position.add(orientation.toUnitVector());
+        Vector2d newPosition;
 
         switch (direction) {
         case FORWARD:
+            newPosition = position.add(orientation.toUnitVector());
             if (newPosition.x >= 0 && newPosition.x < 5 && newPosition.y >= 0 && newPosition.y < 5)
                 position = newPosition;
             break;
         case BACKWARD:
+            newPosition = position.subtract(orientation.toUnitVector());
             if (newPosition.x >= 0 && newPosition.x < 5 && newPosition.y >= 0 && newPosition.y < 5)
                 position = newPosition;
             break;

@@ -16,6 +16,12 @@ public class World {
 
         Animal animal = new Animal();
         System.out.println(animal.toString());
+        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal.toString());
     }
 
     static void run(Direction[] args) {
