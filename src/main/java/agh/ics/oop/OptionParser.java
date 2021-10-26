@@ -31,6 +31,11 @@ public class OptionParser {
             }
         }
 
-        return directions;
+        MoveDirection dirs[] = new MoveDirection[i];
+        for (int j = 0; j < i; j++) {
+            dirs[j] = directions[j];
+        }
+
+        return dirs;
     }
 }
