@@ -1,15 +1,21 @@
 package agh.ics.oop;
 
-public class MapDirectionTest {
-    @Test public boolean test() {
-        assertEquals(tested.next(Direction.NORTH), Direction.EAST);
-        assertEquals(tested.next(Direction.EAST), Direction.SOUTH);
-        assertEquals(tested.next(Direction.SOUTH), Direction.WEST);
-        assertEquals(tested.next(Direction.WEST), Direction.NORTH);
+import org.junit.jupiter.api.Test;
 
-        assertEquals(tested.previous(Direction.NORTH), Direction.WEST);
-        assertEquals(tested.previous(Direction.EAST), Direction.NORTH);
-        assertEquals(tested.previous(Direction.SOUTH), Direction.EAST);
-        assertEquals(tested.previous(Direction.WEST), Direction.SOUTH);
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+public class MapDirectionTest {
+    @Test
+    public void test() {
+        assertEquals(MapDirection.NORTH.next(), MapDirection.EAST);
+        assertEquals(MapDirection.EAST.next(), MapDirection.SOUTH);
+        assertEquals(MapDirection.SOUTH.next(), MapDirection.WEST);
+        assertEquals(MapDirection.WEST.next(), MapDirection.NORTH);
+
+        assertEquals(MapDirection.NORTH.previous(), MapDirection.WEST);
+        assertEquals(MapDirection.EAST.previous(), MapDirection.NORTH);
+        assertEquals(MapDirection.SOUTH.previous(), MapDirection.EAST);
+        assertEquals(MapDirection.WEST.previous(), MapDirection.SOUTH);
     }
 }
