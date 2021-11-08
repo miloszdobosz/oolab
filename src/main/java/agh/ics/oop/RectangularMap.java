@@ -39,6 +39,6 @@ public class RectangularMap implements IWorldMap{
 
     public String toString() {
         MapVisualizer visualizer = new MapVisualizer(this);
-        visualizer.draw(this.start, this.size);
+        return visualizer.draw(this.start, this.size);
     }
 }
