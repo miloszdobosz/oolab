@@ -14,9 +14,13 @@ public class Animal {
 
     public Animal(IWorldMap map, Vector2d initialPosition) {
         this.map = map;
-        if (!map.isOccupied(initialPosition)) {
-            map.place(this);
-        }
+        this.position = initialPosition;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition, MapDirection initialOrientation) {
+        this.map = map;
+        this.position = initialPosition;
+        this.orientation = initialOrientation;
     }
 
     public String toString() {
@@ -29,28 +33,6 @@ public class Animal {
         if (!this.map.canMoveTo(position)) {
             this.position.subtract(this.orientation.toUnitVector());
         }
-
-        /*// Fuuj
-        Vector2d newPosition;
-
-        switch (direction) {
-        case FORWARD:
-            newPosition = position.add(orientation.toUnitVector());
-            if (newPosition.x >= 0 && newPosition.x < 5 && newPosition.y >= 0 && newPosition.y < 5)
-                position = newPosition;
-            break;
-        case BACKWARD:
-            newPosition = position.subtract(orientation.toUnitVector());
-            if (newPosition.x >= 0 && newPosition.x < 5 && newPosition.y >= 0 && newPosition.y < 5)
-                position = newPosition;
-            break;
-        case LEFT:
-            orientation = orientation.previous();
-            break;
-        case RIGHT:
-            orientation = orientation.next();
-            break;
-        } */
     }
 
     public Vector2d getPosition() {
