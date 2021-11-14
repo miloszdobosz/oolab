@@ -4,31 +4,20 @@ import static java.lang.System.out;
 
 public class World {
     public static void main(String[] args) {
-        Animal animal = new Animal();
-        System.out.println(animal.toString());
-
-        MoveDirection directions[] = OptionParser.parse(args);
-
-        for (MoveDirection dir: directions) {
-            animal.move(dir);
-        }
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
     }
 
     static void run(Direction[] args) {
         for (Direction arg : args) {
             switch (arg) {
-                case FORWARD:
-                    out.println("zwierzak idzie do przodu");
-                    break;
-                case BACKWARD:
-                    out.println("zwierzak idzie do tylu");
-                    break;
-                case RIGHT:
-                    out.println("zwierzak idzie w prawo");
-                    break;
-                case LEFT:
-                    out.println("zwierzak idzie w lewo");
-                    break;
+                case FORWARD -> out.println("zwierzak idzie do przodu");
+                case BACKWARD -> out.println("zwierzak idzie do tylu");
+                case RIGHT -> out.println("zwierzak idzie w prawo");
+                case LEFT -> out.println("zwierzak idzie w lewo");
             }
         }
     }
@@ -40,22 +29,22 @@ public class World {
         int i = 0;
         for (String arg : args) {
             switch (arg) {
-                case "f":
+                case "f" -> {
                     directions[i] = Direction.FORWARD;
                     i++;
-                    break;
-                case "b":
+                }
+                case "b" -> {
                     directions[i] = Direction.BACKWARD;
                     i++;
-                    break;
-                case "r":
+                }
+                case "r" -> {
                     directions[i] = Direction.RIGHT;
                     i++;
-                    break;
-                case "l":
+                }
+                case "l" -> {
                     directions[i] = Direction.LEFT;
                     i++;
-                    break;
+                }
             }
         }
 
