@@ -1,8 +1,5 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class SimulationEngine implements IEngine{
     private IWorldMap map;
     private MoveDirection[] moves;
