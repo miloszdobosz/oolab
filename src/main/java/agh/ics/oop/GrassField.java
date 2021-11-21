@@ -2,17 +2,12 @@ package agh.ics.oop;
 
 import java.util.*;
 
-public class GrassField implements IWorldMap{
-    int number;
-    private int grassSize;
+public class GrassField extends AbstractWorldMap{
+    private HashMap<Vector2d, Grass> grass = new HashMap<>();
 
-    // Nie jestem w czym w przyszłości przydatne będzie trzymanie tego, ale na razie wydaje się sensowne:
-    private HashMap<Vector2d, Grass> grass;
-    private ArrayList<Animal> animals;
 
     public GrassField(int number) {
-        this.number = number;
-        this.grassSize = (int) Math.sqrt(number*10);
+        int grassSize = (int) Math.sqrt(number * 10);
 
         Random generator = new Random();
 
@@ -27,69 +22,32 @@ public class GrassField implements IWorldMap{
         }
     }
 
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        return !isOccupied(position);
-    }
-
-    @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            animals.add(animal);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-
-        // Jest zwierzę?
-        for (Animal animal: animals) {
-            if (animal.getPosition().equals(position)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     @Override
     public Object objectAt(Vector2d position) {
-
-        // Jak jest tam trawa to zwróć trawę
-        if (grass.containsKey(position)) {
-            return grass.get(position);
-        }
-
-        // Jak jest zwierz to zwierza
-        for (Animal animal: animals) {
-            if (animal.getPosition().equals(position)) {
-                return animal;
-            }
-        }
-
-        return null;
+        Object object = super.objectAt(position);
+        if (object == null) object = grass.get(position);
+        return object;
     }
 
-    public String toString() {
-        MapVisualizer visualizer = new MapVisualizer(this);
+    @Override
+    protected Vector2d[] findMinMax() {
+        // Znajdowanie granic mapy
 
-        // Znajdowanie granic mapy w bolesny sposób
+        Vector2d vector = new Vector2d(0, 0);
+        final Vector2d[] minMax = {vector, vector};
 
-        Vector2d[] array = (Vector2d[]) grass.keySet().toArray();
-        Vector2d min = array[0];
-        Vector2d max = array[0];
-        for (Vector2d element: array) {
-            if (element.precedes(min)) min = element;
-            if (element.follows(max)) min = element;
+        grass.keySet().forEach((key) -> {
+            minMax[0] = key.lowerLeft(minMax[0]);
+            minMax[1] = key.upperRight(minMax[1]);
+        });
+
+        for (Animal animal: animals) {
+            Vector2d position = animal.getPosition();
+            minMax[0] = position.lowerLeft(minMax[0]);
+            minMax[1] = position.upperRight(minMax[1]);
         }
 
-        for (Vector2d element: array) {
-            if (element.precedes(min)) min = element;
-            if (element.follows(max)) min = element;
-        }
-
-        return visualizer.draw(min, max);
+        return minMax;
     }
 }

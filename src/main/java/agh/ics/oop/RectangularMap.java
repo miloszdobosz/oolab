@@ -1,45 +1,21 @@
 package agh.ics.oop;
 
-import java.util.Collection;
-import java.util.HashMap;
-
-public class RectangularMap implements IWorldMap{
-    private Vector2d start;
-    private Vector2d size;
-    private HashMap<Vector2d, Animal> map;
+public class RectangularMap extends AbstractWorldMap{
+    private final Vector2d start;
+    private final Vector2d size;
 
     public RectangularMap(int width, int height) {
         start = new Vector2d(0, 0);
         size = new Vector2d(width, height);
-        map = new HashMap<Vector2d, Animal>(width * height);
     }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return !isOccupied(position) && start.precedes(position) && size.follows(position);
+        return super.canMoveTo(position) && start.precedes(position) && size.follows(position);
     }
 
     @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPosition())) {
-            map.put(animal.getPosition(), animal);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        return map.containsKey(position);
-    }
-
-    @Override
-    public Object objectAt(Vector2d position) {
-        return map.remove(position);
-    }
-
-    public String toString() {
-        MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(this.start, this.size);
+    protected Vector2d[] findMinMax() {
+        return new Vector2d[]{this.start, this.size};
     }
 }
