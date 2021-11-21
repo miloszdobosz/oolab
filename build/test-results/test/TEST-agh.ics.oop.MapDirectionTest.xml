@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.MapDirectionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-10-27T16:52:42" hostname="pop-os" time="0.035">
+<testsuite name="agh.ics.oop.MapDirectionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-11-21T17:00:34" hostname="pop-os" time="0.036">
   <properties/>
-  <testcase name="test()" classname="agh.ics.oop.MapDirectionTest" time="0.035"/>
+  <testcase name="test()" classname="agh.ics.oop.MapDirectionTest" time="0.036"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
