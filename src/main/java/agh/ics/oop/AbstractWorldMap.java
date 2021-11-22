@@ -1,9 +1,10 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
+    protected Vector2d start;
+    protected Vector2d size;
 
     protected HashMap<Vector2d, Animal> animals = new HashMap<>();
 
@@ -16,10 +17,13 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     @Override
     public boolean place(Animal animal) {
         Vector2d position = animal.getPosition();
+
         if (canMoveTo(position)) {
+            animal.addObserver(this);
             animals.put(position, animal);
             return true;
         }
+
         return false;
     }
 
@@ -39,14 +43,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         animals.put(newPosition, animal);
     }
 
-    protected Vector2d[] findMinMax() {
-        Vector2d vector = new Vector2d(0, 0);
-        return new Vector2d[]{vector, vector};
-    }
-
     public String toString() {
         MapVisualizer visualizer = new MapVisualizer(this);
-        Vector2d[] minMax = findMinMax();
-        return visualizer.draw(minMax[0], minMax[1]);
+        return visualizer.draw(start, size);
     }
 }

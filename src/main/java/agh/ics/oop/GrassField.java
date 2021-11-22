@@ -3,6 +3,7 @@ package agh.ics.oop;
 import java.util.*;
 
 public class GrassField extends AbstractWorldMap{
+
     private HashMap<Vector2d, Grass> grass = new HashMap<>();
 
 
@@ -19,6 +20,8 @@ public class GrassField extends AbstractWorldMap{
             }
 
             this.grass.put(position, new Grass(position));
+
+            recalculate(position);
         }
     }
 
@@ -31,23 +34,24 @@ public class GrassField extends AbstractWorldMap{
     }
 
     @Override
-    protected Vector2d[] findMinMax() {
+    public boolean place(Animal animal) {
+        if (super.place(animal)) {
+            recalculate(animal.getPosition());
+            return true;
+        }
 
-        // Znajdowanie granic mapy
+        return false;
+    }
 
-        Vector2d vector = new Vector2d(0, 0);
-        final Vector2d[] minMax = {vector, vector};
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        super.positionChanged(oldPosition, newPosition);
+        recalculate(newPosition);
+    }
 
-        grass.keySet().forEach((key) -> {
-            minMax[0] = key.lowerLeft(minMax[0]);
-            minMax[1] = key.upperRight(minMax[1]);
-        });
 
-        animals.keySet().forEach((key) -> {
-            minMax[0] = key.lowerLeft(minMax[0]);
-            minMax[1] = key.upperRight(minMax[1]);
-        });
-
-        return minMax;
+    private void recalculate(Vector2d vector) {
+        start = start.lowerLeft(vector);
+        size = size.upperRight(vector);
     }
 }

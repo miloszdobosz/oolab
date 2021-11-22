@@ -17,9 +17,6 @@ public class SimulationEngine implements IEngine{
 
     @Override
     public void run() {
-
-        // Niezbyt da się to zrobić inaczej bez modyfikowania interfejsu
-
         int i = 0;
         for (MoveDirection move: moves) {
             Animal animal = (Animal) map.objectAt(positions[i]);
