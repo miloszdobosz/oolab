@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.Objects;
+
 class Vector2d {
     final int x;
     final int y;
@@ -25,6 +27,11 @@ class Vector2d {
 
         Vector2d that = (Vector2d) other;
         return this.x == that.x && this.y == that.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.x, this.y);
     }
 
     public boolean precedes(Vector2d other) {

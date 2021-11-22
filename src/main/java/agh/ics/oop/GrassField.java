@@ -32,6 +32,7 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     protected Vector2d[] findMinMax() {
+
         // Znajdowanie granic mapy
 
         Vector2d vector = new Vector2d(0, 0);
@@ -42,11 +43,10 @@ public class GrassField extends AbstractWorldMap{
             minMax[1] = key.upperRight(minMax[1]);
         });
 
-        for (Animal animal: animals) {
-            Vector2d position = animal.getPosition();
-            minMax[0] = position.lowerLeft(minMax[0]);
-            minMax[1] = position.upperRight(minMax[1]);
-        }
+        animals.keySet().forEach((key) -> {
+            minMax[0] = key.lowerLeft(minMax[0]);
+            minMax[1] = key.upperRight(minMax[1]);
+        });
 
         return minMax;
     }

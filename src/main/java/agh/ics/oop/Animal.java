@@ -1,16 +1,12 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+
 public class Animal {
     private MapDirection orientation = MapDirection.NORTH;
-    private Vector2d position = new Vector2d(2, 2);
+    private Vector2d position;
     private IWorldMap map;
-
-    public Animal() {
-    }
-
-    public Animal(IWorldMap map) {
-        this.map = map;
-    }
+    private ArrayList<IPositionChangeObserver> observers;
 
     public Animal(IWorldMap map, Vector2d initialPosition) {
         this.map = map;
@@ -28,14 +24,41 @@ public class Animal {
     }
 
     public void move(MoveDirection direction) {
-        this.position.add(this.orientation.toUnitVector());
-
-        if (!this.map.canMoveTo(position)) {
-            this.position.subtract(this.orientation.toUnitVector());
+        switch (direction) {
+            case FORWARD -> {
+                Vector2d newPosition = orientation.toUnitVector().add(position);
+                if (map.canMoveTo(newPosition)) {
+                    positionChanged(newPosition);
+                    position = newPosition;
+                }
+            }
+            case BACKWARD -> {
+                Vector2d newPosition = orientation.toUnitVector().opposite().add(position);
+                if (map.canMoveTo(newPosition)) {
+                    positionChanged(newPosition);
+                    position = newPosition;
+                }
+            }
+            case RIGHT -> orientation = orientation.next();
+            case LEFT -> orientation = orientation.previous();
         }
     }
 
     public Vector2d getPosition() {
         return position;
+    }
+
+    public void addObserver(IPositionChangeObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void removeObserver(IPositionChangeObserver observer) {
+        this.observers.remove(observer);
+    }
+
+    public void positionChanged(Vector2d newPosition) {
+        for (IPositionChangeObserver observer: observers) {
+            observer.positionChanged(position, newPosition);
+        }
     }
 }
