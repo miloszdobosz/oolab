@@ -25,5 +25,11 @@ public class RectangularMapTest {
 
         assertTrue(rectangularMap.isOccupied(position));
         assertEquals(rectangularMap.objectAt(position), animal);
+
+        try {
+            rectangularMap.place(animal);
+        } catch (IllegalArgumentException exception) {
+            assertTrue(exception != null);
+        }
     }
 }

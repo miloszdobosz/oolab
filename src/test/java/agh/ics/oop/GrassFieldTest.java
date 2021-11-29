@@ -24,6 +24,12 @@ public class GrassFieldTest {
 
         assertTrue(grassField.isOccupied(position));
         assertEquals(grassField.objectAt(position), animal);
+
+        try {
+            grassField.place(animal);
+        } catch (IllegalArgumentException exception) {
+            assertTrue(exception != null);
+        }
     }
 }
 

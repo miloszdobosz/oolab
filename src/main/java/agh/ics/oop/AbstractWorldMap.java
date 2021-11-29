@@ -24,7 +24,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             return true;
         }
 
-        return false;
+        throw new IllegalArgumentException(position + "is already occupied");
     }
 
     @Override
