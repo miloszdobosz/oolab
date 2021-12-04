@@ -19,9 +19,9 @@ public class GrassField extends AbstractWorldMap{
                 position = new Vector2d(generator.nextInt(grassSize), generator.nextInt(grassSize));
             }
 
-            this.grass.put(position, new Grass(position));
-
-            recalculate(position);
+            Grass grassPiece = new Grass(position);
+            this.grass.put(position, grassPiece);
+            this.boundary.place(grassPiece);
         }
     }
 
@@ -34,24 +34,7 @@ public class GrassField extends AbstractWorldMap{
     }
 
     @Override
-    public boolean place(Animal animal) {
-        if (super.place(animal)) {
-            recalculate(animal.getPosition());
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         super.positionChanged(oldPosition, newPosition);
-        recalculate(newPosition);
-    }
-
-
-    private void recalculate(Vector2d vector) {
-        start = start.lowerLeft(vector);
-        size = size.upperRight(vector);
     }
 }

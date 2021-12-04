@@ -12,7 +12,6 @@ public enum MapDirection {
             case SOUTH -> "S";
             case WEST -> "W";
             case EAST -> "E";
-            default -> "";
         };
     }
 
@@ -22,7 +21,6 @@ public enum MapDirection {
             case SOUTH -> WEST;
             case WEST -> NORTH;
             case EAST -> SOUTH;
-            default -> null;
         };
     }
 
@@ -32,7 +30,6 @@ public enum MapDirection {
             case SOUTH -> EAST;
             case WEST -> SOUTH;
             case EAST -> NORTH;
-            default -> null;
         };
     }
 
@@ -42,7 +39,6 @@ public enum MapDirection {
             case SOUTH -> new Vector2d(0, -1);
             case WEST -> new Vector2d(-1, 0);
             case EAST -> new Vector2d(1, 0);
-            default -> null;
         };
     }
 }

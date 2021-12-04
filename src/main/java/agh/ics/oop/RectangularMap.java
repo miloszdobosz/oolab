@@ -13,9 +13,4 @@ public class RectangularMap extends AbstractWorldMap{
     public boolean canMoveTo(Vector2d position) {
         return super.canMoveTo(position) && start.precedes(position) && size.follows(position);
     }
-
-    @Override
-    protected Vector2d[] findMinMax() {
-        return new Vector2d[]{this.start, this.size};
-    }
 }

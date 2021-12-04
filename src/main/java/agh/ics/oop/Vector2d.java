@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 import java.util.Objects;
 
-class Vector2d {
+class Vector2d implements Comparable<Vector2d>{
     final int x;
     final int y;
 
@@ -19,13 +19,16 @@ class Vector2d {
         return new Vector2d(-this.x, -this.y);
     }
 
+    public Vector2d reverse() {
+        return new Vector2d(this.y, this.x);
+    }
+
     public boolean equals(Object other) {
         if (this == other)
             return true;
-        if (!(other instanceof Vector2d))
+        if (!(other instanceof Vector2d that))
             return false;
 
-        Vector2d that = (Vector2d) other;
         return this.x == that.x && this.y == that.y;
     }
 
@@ -43,15 +46,15 @@ class Vector2d {
     }
 
     public Vector2d upperRight(Vector2d other) {
-        int x = this.x > other.x ? this.x : other.x;
-        int y = this.y > other.y ? this.y : other.y;
+        int x = Math.max(this.x, other.x);
+        int y = Math.max(this.y, other.y);
 
         return new Vector2d(x, y);
     }
 
     public Vector2d lowerLeft(Vector2d other) {
-        int x = this.x < other.x ? this.x : other.x;
-        int y = this.y < other.y ? this.y : other.y;
+        int x = Math.min(this.x, other.x);
+        int y = Math.min(this.y, other.y);
 
         return new Vector2d(x, y);
     }
@@ -62,5 +65,12 @@ class Vector2d {
 
     public Vector2d subtract(Vector2d other) {
         return new Vector2d(this.x - other.x, this.y - other.y);
+    }
+
+    @Override
+    public int compareTo(Vector2d other) {
+        if (this.precedes(other)) return -1;
+        if (this.follows(other)) return 1;
+        return 0;
     }
 }

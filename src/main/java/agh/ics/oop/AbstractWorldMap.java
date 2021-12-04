@@ -3,8 +3,7 @@ package agh.ics.oop;
 import java.util.HashMap;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
-    protected Vector2d start;
-    protected Vector2d size;
+    protected MapBoundary boundary = new MapBoundary();
 
     protected HashMap<Vector2d, Animal> animals = new HashMap<>();
 
@@ -20,7 +19,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
         if (canMoveTo(position)) {
             animal.addObserver(this);
+            animal.addObserver(boundary);
             animals.put(position, animal);
+            boundary.place(animal);
             return true;
         }
 
@@ -45,6 +46,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     public String toString() {
         MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(start, size);
+        return visualizer.draw(boundary.getStart(), boundary.getEnd());
     }
 }
