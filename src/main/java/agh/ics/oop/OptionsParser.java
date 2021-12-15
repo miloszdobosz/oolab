@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.List;
+
 public class OptionsParser {
     public static MoveDirection[] parse(String[] args) {
         int length = args.length;

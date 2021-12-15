@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.HashMap;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
-    protected MapBoundary boundary = new MapBoundary();
+    public MapBoundary boundary = new MapBoundary();
 
     protected HashMap<Vector2d, Animal> animals = new HashMap<>();
 

@@ -2,13 +2,21 @@ package agh.ics.oop;
 
 import java.util.Objects;
 
-class Vector2d implements Comparable<Vector2d>{
+public class Vector2d implements Comparable<Vector2d>{
     final int x;
     final int y;
 
     public Vector2d(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public String toString() {

@@ -11,7 +11,7 @@ public class OptionsParserTest {
         OptionsParser parser = new OptionsParser();
 
         String[] args1 = {"f", "b", "l", "r"};
-        String[] args2 = {"eeeeee!"};
+        String[] args2 = {"eeeeee!", "e"};
 
         MoveDirection[] result1 = {
                 MoveDirection.FORWARD,
